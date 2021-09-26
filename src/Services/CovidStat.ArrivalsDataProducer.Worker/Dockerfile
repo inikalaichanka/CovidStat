@@ -8,11 +8,11 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj", "CovidStat.ArrivalsDataProducer.Worker/"]
-COPY ["CovidStat.ArrivalsDataProducer/CovidStat.ArrivalsDataProducer.csproj", "CovidStat.ArrivalsDataProducer/"]
-RUN dotnet restore "CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj"
+COPY ["Services/CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj", "Services/CovidStat.ArrivalsDataProducer.Worker/"]
+COPY ["Services/CovidStat.ArrivalsDataProducer/CovidStat.ArrivalsDataProducer.csproj", "Services/CovidStat.ArrivalsDataProducer/"]
+RUN dotnet restore "Services/CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj"
 COPY . .
-WORKDIR "/src/CovidStat.ArrivalsDataProducer.Worker"
+WORKDIR "/src/Services/CovidStat.ArrivalsDataProducer.Worker"
 RUN dotnet build "CovidStat.ArrivalsDataProducer.Worker.csproj" -c Release -o /app/build
 
 FROM build AS publish
