@@ -26,7 +26,7 @@ namespace CovidStat.ArrivalsDataProducer.Worker
                 _logger.LogInformation($"{nameof(ArrivalsDataProducer)} running at: {DateTimeOffset.Now}");
                 try
                 {
-                    ArrivalViewModel arrival = await ProduceNext();
+                    ArrivalViewModel arrival = await ProduceNextAsync();
                     _logger.LogInformation($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
                         $"Departure {(arrival.DepartureDate.HasValue ? $"at {arrival.DepartureDate.Value.ToShortDateString()}" : "is not planned.")}");
 
@@ -39,9 +39,9 @@ namespace CovidStat.ArrivalsDataProducer.Worker
             }
         }
 
-        private async Task<ArrivalViewModel> ProduceNext()
+        private async Task<ArrivalViewModel> ProduceNextAsync()
         {
-            ArrivalViewModel arrival = await _arrivalsDataStorage.GetNext();
+            ArrivalViewModel arrival = await _arrivalsDataStorage.GetNextAsync();
             arrival.ArrivalDate = DateTime.Now.Date;
 
             if (_random.Next(0, 10) != 9)

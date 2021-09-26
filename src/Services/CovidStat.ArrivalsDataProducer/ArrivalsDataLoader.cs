@@ -15,9 +15,9 @@ namespace CovidStat.ArrivalsDataProducer
             _arrivalsHttpClient = arrivalsHttpClient;
         }
 
-        public async Task<ArrivalViewModel[]> LoadData()
+        public async Task<ArrivalViewModel[]> LoadDataAsync()
         {
-            var response = await _arrivalsHttpClient.FetchData();
+            var response = await _arrivalsHttpClient.FetchDataAsync();
             using var contentStream = await response.Content.ReadAsStreamAsync();
             var responseViewModel = await JsonSerializer.DeserializeAsync<ResponseViewModel>(contentStream, _deserializeOptions);
 

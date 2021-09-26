@@ -4,6 +4,6 @@ namespace CovidStat.ArrivalsDataProducer.Interfaces
 {
     public interface IArrivalsDataStorage
     {
-        Task<ArrivalViewModel> GetNext();
+        Task<ArrivalViewModel> GetNextAsync();
     }
 }

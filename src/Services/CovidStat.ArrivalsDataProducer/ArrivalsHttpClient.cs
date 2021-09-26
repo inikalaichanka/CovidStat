@@ -14,7 +14,7 @@ namespace CovidStat.ArrivalsDataProducer
 
         public ArrivalsHttpClient(HttpClient httpClient) => _httpClient = httpClient;
 
-        public async Task<HttpResponseMessage> FetchData() => await _httpClient.PostAsync(RequestUri, GetRequestContent());
+        public async Task<HttpResponseMessage> FetchDataAsync() => await _httpClient.PostAsync(RequestUri, GetRequestContent());
 
         private StringContent GetRequestContent()
         {

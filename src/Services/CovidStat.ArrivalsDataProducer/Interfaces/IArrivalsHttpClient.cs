@@ -5,6 +5,6 @@ namespace CovidStat.ArrivalsDataProducer.Interfaces
 {
     public interface IArrivalsHttpClient
     {
-        Task<HttpResponseMessage> FetchData();
+        Task<HttpResponseMessage> FetchDataAsync();
     }
 }

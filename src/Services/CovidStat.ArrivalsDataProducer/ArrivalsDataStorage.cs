@@ -13,19 +13,19 @@ namespace CovidStat.ArrivalsDataProducer
 
         public ArrivalsDataStorage(IArrivalsDataLoader arrivalsDataLoader) => _arrivalsDataLoader = arrivalsDataLoader;
 
-        public async Task<ArrivalViewModel> GetNext()
+        public async Task<ArrivalViewModel> GetNextAsync()
         {
             if (_cache.Count == 0)
             {
-                await PopulateCache();
+                await PopulateCacheAsync();
             }
 
             return PopFromCache();
         }
 
-        private async Task PopulateCache()
+        private async Task PopulateCacheAsync()
         {
-            ArrivalViewModel[] data = await _arrivalsDataLoader.LoadData();
+            ArrivalViewModel[] data = await _arrivalsDataLoader.LoadDataAsync();
             foreach (var item in data)
             {
                 _cache.Add(item.Id, item);
