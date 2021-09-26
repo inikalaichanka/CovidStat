@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using CovidStat.Services.ArrivalsDataProducer.Interfaces;
+using CovidStat.Infrastructure.MessageBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -11,16 +12,26 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
     {
         private readonly ILogger<ArrivalsDataProducer> _logger;
         private readonly IArrivalsDataStorage _arrivalsDataStorage;
+        private readonly IMessageBus _messageBus;
         private readonly Random _random = new();
 
-        public ArrivalsDataProducer(ILogger<ArrivalsDataProducer> logger, IArrivalsDataStorage arrivalsDataStorage)
+        public ArrivalsDataProducer(
+            ILogger<ArrivalsDataProducer> logger,
+            IArrivalsDataStorage arrivalsDataStorage,
+            IMessageBus messageBus)
         {
             _logger = logger;
             _arrivalsDataStorage = arrivalsDataStorage;
+            _messageBus = messageBus;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            stoppingToken.Register(async () =>
+            {
+                await _messageBus.DisposeAsync().ConfigureAwait(false);
+            });
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 _logger.LogInformation($"{nameof(ArrivalsDataProducer)} running at: {DateTimeOffset.Now}");
@@ -30,6 +41,8 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
                     _logger.LogInformation($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
                         $"Departure {(arrival.DepartureDate.HasValue ? $"at {arrival.DepartureDate.Value.ToShortDateString()}" : "is not planned.")}");
 
+                    await _messageBus.PublishAsync(arrival, stoppingToken);
+
                     await Task.Delay(_random.Next(10000, 30000), stoppingToken);
                 }
                 catch (OperationCanceledException)
@@ -37,6 +50,12 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
                     break;
                 }
             }
+        }
+
+        public override async Task StopAsync(CancellationToken cancellationToken)
+        {
+            await _messageBus.CloseAsync(cancellationToken).ConfigureAwait(false);
+            await base.StopAsync(cancellationToken).ConfigureAwait(false);
         }
 
         private async Task<ArrivalViewModel> ProduceNextAsync()
