@@ -5,6 +5,7 @@
     <UserSecretsId>dotnet-CovidStat.ArrivalsDataProducer.Worker-F3A2F00B-83EF-4A65-A9DD-C69C894611BD</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <RootNamespace>CovidStat.Services.ArrivalsDataProducer.Worker</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

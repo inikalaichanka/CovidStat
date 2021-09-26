@@ -1,10 +1,10 @@
-﻿using CovidStat.ArrivalsDataProducer.Interfaces;
+﻿using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidStat.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer
 {
     public class ArrivalsDataStorage : IArrivalsDataStorage
     {

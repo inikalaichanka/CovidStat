@@ -1,11 +1,11 @@
-﻿using CovidStat.ArrivalsDataProducer.Interfaces;
+﻿using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CovidStat.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer
 {
     public class ArrivalsHttpClient : IArrivalsHttpClient
     {

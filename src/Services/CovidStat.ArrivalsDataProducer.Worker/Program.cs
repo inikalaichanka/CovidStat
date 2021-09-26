@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using CovidStat.ArrivalsDataProducer.Interfaces;
+using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CovidStat.ArrivalsDataProducer.Worker
+namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
     public class Program
     {

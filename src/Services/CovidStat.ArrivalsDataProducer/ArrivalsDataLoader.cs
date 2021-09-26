@@ -1,9 +1,9 @@
-﻿using CovidStat.ArrivalsDataProducer.Interfaces;
+﻿using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CovidStat.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer
 {
     public class ArrivalsDataLoader : IArrivalsDataLoader
     {

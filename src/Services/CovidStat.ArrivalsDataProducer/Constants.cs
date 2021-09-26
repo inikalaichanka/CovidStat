@@ -1,4 +1,4 @@
-﻿namespace CovidStat.ArrivalsDataProducer
+﻿namespace CovidStat.Services.ArrivalsDataProducer
 {
     internal static class Constants
     {

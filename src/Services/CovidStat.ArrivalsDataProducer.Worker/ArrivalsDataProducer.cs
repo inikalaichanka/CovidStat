@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CovidStat.ArrivalsDataProducer.Interfaces;
+using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace CovidStat.ArrivalsDataProducer.Worker
+namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
     public class ArrivalsDataProducer : BackgroundService
     {

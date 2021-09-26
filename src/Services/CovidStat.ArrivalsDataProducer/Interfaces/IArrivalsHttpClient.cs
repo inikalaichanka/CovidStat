@@ -1,7 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace CovidStat.ArrivalsDataProducer.Interfaces
+namespace CovidStat.Services.ArrivalsDataProducer.Interfaces
 {
     public interface IArrivalsHttpClient
     {
