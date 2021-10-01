@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Worker">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>dotnet-CovidStat.ArrivalsDataPublisher.Worker-66EDCB1F-C7A6-4A54-8808-06645AF5AA7D</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerfileContext>..\..</DockerfileContext>
+    <RootNamespace>CovidStat.Services.ArrivalsDataPublisher.Worker</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\CovidStat.MessageBusServiceBus\CovidStat.MessageBusServiceBus.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\CovidStat.MessageBus\CovidStat.MessageBus.csproj" />
+  </ItemGroup>
+</Project>
