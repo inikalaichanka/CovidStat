@@ -9,6 +9,8 @@ WORKDIR /app
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj", "Services/CovidStat.ArrivalsDataProducer.Worker/"]
+COPY ["Infrastructure/CovidStat.MessageBus/CovidStat.MessageBus.csproj", "Infrastructure/CovidStat.MessageBus/"]
+COPY ["Infrastructure/CovidStat.MessageBusServiceBus/CovidStat.MessageBusServiceBus.csproj", "Infrastructure/CovidStat.MessageBusServiceBus/"]
 COPY ["Services/CovidStat.ArrivalsDataProducer/CovidStat.ArrivalsDataProducer.csproj", "Services/CovidStat.ArrivalsDataProducer/"]
 RUN dotnet restore "Services/CovidStat.ArrivalsDataProducer.Worker/CovidStat.ArrivalsDataProducer.Worker.csproj"
 COPY . .

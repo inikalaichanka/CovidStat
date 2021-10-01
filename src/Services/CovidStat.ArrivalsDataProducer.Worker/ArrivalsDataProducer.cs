@@ -34,12 +34,10 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                _logger.LogInformation($"{nameof(ArrivalsDataProducer)} running at: {DateTimeOffset.Now}");
                 try
                 {
                     ArrivalViewModel arrival = await ProduceNextAsync();
-                    _logger.LogInformation($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
-                        $"Departure {(arrival.DepartureDate.HasValue ? $"at {arrival.DepartureDate.Value.ToShortDateString()}" : "is not planned.")}");
+                    _logger.LogInformation($"{arrival.FullName} goes to {arrival.City} at: {DateTimeOffset.Now}.");
 
                     await _messageBus.PublishAsync(arrival, stoppingToken);
 
