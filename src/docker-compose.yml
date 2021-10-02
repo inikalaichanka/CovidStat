@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  covidstat.arrivalsdataproducer.worker:
+    image: ${DOCKER_REGISTRY-}covidstatarrivalsdataproducerworker
+    build:
+      context: .
+      dockerfile: Services\CovidStat.ArrivalsDataProducer.Worker\Dockerfile
+
+  covidstat.arrivalsdatapublisher.worker:
+    image: ${DOCKER_REGISTRY-}covidstatarrivalsdatapublisherworker
+    build:
+      context: .
+      dockerfile: Services\CovidStat.ArrivalsDataPublisher.Worker\Dockerfile
+
