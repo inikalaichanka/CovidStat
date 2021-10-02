@@ -6,10 +6,18 @@ services:
     build:
       context: .
       dockerfile: Services\CovidStat.ArrivalsDataProducer.Worker\Dockerfile
+    environment:
+      - DOTNET_ENVIRONMENT=${Environment}
+      - DOTNET_ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
+      - DOTNET_ServiceBus__TopicName=${ServiceBus_TopicName}
 
   covidstat.arrivalsdatapublisher.worker:
     image: ${DOCKER_REGISTRY-}covidstatarrivalsdatapublisherworker
     build:
       context: .
       dockerfile: Services\CovidStat.ArrivalsDataPublisher.Worker\Dockerfile
-
+    environment:
+      - DOTNET_ENVIRONMENT=${Environment}
+      - DOTNET_ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
+      - DOTNET_ServiceBus__TopicName=${ServiceBus_TopicName}
+      - DOTNET_ServiceBus__SubscriptionName=${ServiceBus_SubscriptionName}
