@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.env = .env
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CovidStat.ArrivalsDataPublisher", "Services\CovidStat.ArrivalsDataPublisher\CovidStat.ArrivalsDataPublisher.csproj", "{DB71C97C-6C59-4C13-B367-3CE05667DBAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +62,10 @@ Global
 		{C52DC6E9-7846-4AF7-9B73-2EFC8DEB02A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52DC6E9-7846-4AF7-9B73-2EFC8DEB02A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52DC6E9-7846-4AF7-9B73-2EFC8DEB02A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB71C97C-6C59-4C13-B367-3CE05667DBAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB71C97C-6C59-4C13-B367-3CE05667DBAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB71C97C-6C59-4C13-B367-3CE05667DBAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB71C97C-6C59-4C13-B367-3CE05667DBAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -74,6 +80,7 @@ Global
 		{1A4A45B5-3258-4127-A7FA-E3001D26928C} = {90AE8E18-8B34-4545-A94B-EF9AAA3D594C}
 		{345DBE4C-B45A-4CD5-BB6E-7B0F46CDFFA3} = {308D788A-7A7B-4365-8990-38D2027210C2}
 		{C42A2957-CDE1-47D4-AD16-A4140E9651CB} = {345DBE4C-B45A-4CD5-BB6E-7B0F46CDFFA3}
+		{DB71C97C-6C59-4C13-B367-3CE05667DBAF} = {345DBE4C-B45A-4CD5-BB6E-7B0F46CDFFA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE249E1E-FB45-4256-8678-6695EE303414}

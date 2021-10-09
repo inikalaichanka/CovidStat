@@ -21,3 +21,6 @@ services:
       - DOTNET_ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
       - DOTNET_ServiceBus__TopicName=${ServiceBus_TopicName}
       - DOTNET_ServiceBus__SubscriptionName=${ServiceBus_SubscriptionName}
+      - DOTNET_MongoDB__ConnectionString=${MongoDB_ConnectionString}
+      - DOTNET_MongoDB__DatabaseName=${MongoDB_DatabaseName}
+      - DOTNET_MongoDB__CollectionName=${MongoDB_CollectionName}

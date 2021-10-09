@@ -1,5 +1,6 @@
 using CovidStat.Infrastructure.MessageBus;
 using CovidStat.Infrastructure.MessageBusServiceBus;
+using CovidStat.Services.ArrivalsDataPublisher.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Threading.Tasks;
@@ -14,10 +15,12 @@ namespace CovidStat.Services.ArrivalsDataPublisher.Worker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services
-                        .Configure<ServiceBusOptions>(hostContext.Configuration.GetSection(ServiceBusOptions.ServiceBus));
+                        .Configure<ServiceBusOptions>(hostContext.Configuration.GetSection(ServiceBusOptions.ServiceBus))
+                        .Configure<MongoDbOptions>(hostContext.Configuration.GetSection(MongoDbOptions.MongoDb));
 
                     services
                         .AddHostedService<ArrivalsDataPublisher>()
+                        .AddSingleton<IArrivalRepository, ArrivalRepository>()
                         .AddSingleton<IMessageBus, MessageBusServiceBus>();
                 })
                 .Build();

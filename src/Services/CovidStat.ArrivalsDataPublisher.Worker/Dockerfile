@@ -10,6 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["Services/CovidStat.ArrivalsDataPublisher.Worker/CovidStat.ArrivalsDataPublisher.Worker.csproj", "Services/CovidStat.ArrivalsDataPublisher.Worker/"]
 COPY ["Infrastructure/CovidStat.MessageBus/CovidStat.MessageBus.csproj", "Infrastructure/CovidStat.MessageBus/"]
+COPY ["Services/CovidStat.ArrivalsDataPublisher/CovidStat.ArrivalsDataPublisher.csproj", "Services/CovidStat.ArrivalsDataPublisher/"]
 COPY ["Infrastructure/CovidStat.MessageBusServiceBus/CovidStat.MessageBusServiceBus.csproj", "Infrastructure/CovidStat.MessageBusServiceBus/"]
 RUN dotnet restore "Services/CovidStat.ArrivalsDataPublisher.Worker/CovidStat.ArrivalsDataPublisher.Worker.csproj"
 COPY . .
