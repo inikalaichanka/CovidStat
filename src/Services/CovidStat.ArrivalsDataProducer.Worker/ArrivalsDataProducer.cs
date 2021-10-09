@@ -25,6 +25,12 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
             _messageBus = messageBus;
         }
 
+        public override Task StartAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"{nameof(ArrivalsDataProducer)} is started at {DateTime.Now}");
+            return base.StartAsync(cancellationToken);
+        }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             stoppingToken.Register(async () =>
@@ -37,7 +43,7 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
                 try
                 {
                     ArrivalViewModel arrival = await ProduceNextAsync();
-                    _logger.LogInformation($"{arrival.FullName} goes to {arrival.City} at: {DateTimeOffset.Now}.");
+                    _logger.LogTrace($"{arrival.FullName} goes to {arrival.City} at: {DateTimeOffset.Now}.");
 
                     await _messageBus.PublishAsync(arrival, stoppingToken);
 
@@ -54,6 +60,8 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
         {
             await _messageBus.CloseAsync(cancellationToken).ConfigureAwait(false);
             await base.StopAsync(cancellationToken).ConfigureAwait(false);
+
+            _logger.LogInformation($"{nameof(ArrivalsDataProducer)} is stopped at {DateTime.Now}");
         }
 
         private async Task<ArrivalViewModel> ProduceNextAsync()

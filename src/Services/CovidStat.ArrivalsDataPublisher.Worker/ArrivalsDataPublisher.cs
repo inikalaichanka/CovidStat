@@ -24,9 +24,15 @@ namespace CovidStat.Services.ArrivalsDataPublisher.Worker
             _arrivalRepository = arrivalRepository;
         }
 
+        public override Task StartAsync(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"{nameof(ArrivalsDataPublisher)} is started at {DateTime.Now}");
+            return base.StartAsync(cancellationToken);
+        }
+
         private async Task ProcessMessage(ArrivalViewModel arrival)
         {
-            _logger.LogInformation($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
+            _logger.LogTrace($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
                 $"Departure {(arrival.DepartureDate.HasValue ? $"at {arrival.DepartureDate.Value.ToShortDateString()}" : "is not planned.")}");
 
             await _arrivalRepository.AddAsync(arrival);
@@ -55,6 +61,8 @@ namespace CovidStat.Services.ArrivalsDataPublisher.Worker
         {
             await base.StopAsync(cancellationToken).ConfigureAwait(false);
             await _messageBus.UnsubscribeAsync(cancellationToken).ConfigureAwait(false);
+
+            _logger.LogInformation($"{nameof(ArrivalsDataPublisher)} is stopped at {DateTime.Now}");
         }
     }
 }
