@@ -6,31 +6,18 @@ services:
     build:
       context: .
       dockerfile: Services\CovidStat.ArrivalsDataProducer.Worker\Dockerfile
-    environment:
-      - DOTNET_ENVIRONMENT=${Environment}
-      - DOTNET_ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
-      - DOTNET_ServiceBus__TopicName=${ServiceBus_TopicName}
 
   covidstat.arrivalsdatapublisher.worker:
     image: ${DOCKER_REGISTRY-}covidstatarrivalsdatapublisherworker
     build:
       context: .
       dockerfile: Services\CovidStat.ArrivalsDataPublisher.Worker\Dockerfile
-    environment:
-      - DOTNET_ENVIRONMENT=${Environment}
-      - DOTNET_ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
-      - DOTNET_ServiceBus__TopicName=${ServiceBus_TopicName}
-      - DOTNET_ServiceBus__SubscriptionName=${ServiceBus_SubscriptionName}
-      - ArrivalsApi__Url=http://covidstat.arrivals.api
+    depends_on:
+      - covidstat.arrivals.api
 
   covidstat.arrivals.api:
     image: ${DOCKER_REGISTRY-}covidstatarrivalsapi
     build:
       context: .
       dockerfile: Web\CovidStat.Arrivals.API\Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=${Environment}
-      - ASPNETCORE_MongoDB__ConnectionString=${MongoDB_ConnectionString}
-      - ASPNETCORE_MongoDB__DatabaseName=${MongoDB_DatabaseName}
-      - ASPNETCORE_MongoDB__CollectionName=${MongoDB_CollectionName}
 

@@ -1,10 +1,27 @@
 version: '3.4'
 
 services:
+  covidstat.arrivalsdataproducer.worker:
+    environment:
+      - DOTNET_ENVIRONMENT=${Environment}
+      - ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
+      - ServiceBus__TopicName=${ServiceBus_TopicName}
+
+  covidstat.arrivalsdatapublisher.worker:
+    environment:
+      - DOTNET_ENVIRONMENT=${Environment}
+      - ServiceBus__ConnectionString=${ServiceBus_ConnectionString}
+      - ServiceBus__TopicName=${ServiceBus_TopicName}
+      - ServiceBus__SubscriptionName=${ServiceBus_SubscriptionName}
+      - ArrivalsApi__Url=http://covidstat.arrivals.api
+
   covidstat.arrivals.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=${Environment}
       - ASPNETCORE_URLS=https://+:443;http://+:80
+      - MongoDB__ConnectionString=${MongoDB_ConnectionString}
+      - MongoDB__DatabaseName=${MongoDB_DatabaseName}
+      - MongoDB__CollectionName=${MongoDB_CollectionName}
     ports:
       - "54249:80"
       - "54248:443"
