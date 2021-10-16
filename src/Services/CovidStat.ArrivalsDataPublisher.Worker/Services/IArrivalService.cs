@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using CovidStat.Services.ArrivalsDataPublisher.Worker.Models;
+using System.Threading.Tasks;
 
 namespace CovidStat.Services.ArrivalsDataPublisher.Worker.Services
 {

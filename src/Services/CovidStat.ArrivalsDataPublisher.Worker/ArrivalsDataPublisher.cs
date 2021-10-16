@@ -1,4 +1,5 @@
 using CovidStat.Infrastructure.MessageBus;
+using CovidStat.Services.ArrivalsDataPublisher.Worker.Models;
 using CovidStat.Services.ArrivalsDataPublisher.Worker.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
