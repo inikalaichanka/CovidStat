@@ -1,5 +1,5 @@
 using CovidStat.Infrastructure.MessageBus;
-using CovidStat.Services.ArrivalsDataPublisher.Interfaces;
+using CovidStat.Services.ArrivalsDataPublisher.Worker.Services;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,16 +12,16 @@ namespace CovidStat.Services.ArrivalsDataPublisher.Worker
     {
         private readonly ILogger<ArrivalsDataPublisher> _logger;
         private readonly IMessageBus _messageBus;
-        private readonly IArrivalRepository _arrivalRepository;
+        private readonly IArrivalService _arrivalService;
 
         public ArrivalsDataPublisher(
             ILogger<ArrivalsDataPublisher> logger,
             IMessageBus messageBus,
-            IArrivalRepository arrivalRepository)
+            IArrivalService arrivalService)
         {
             _logger = logger;
             _messageBus = messageBus;
-            _arrivalRepository = arrivalRepository;
+            _arrivalService = arrivalService;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -35,7 +35,7 @@ namespace CovidStat.Services.ArrivalsDataPublisher.Worker
             _logger.LogTrace($"{arrival.FullName} arrived to {arrival.City} at {arrival.ArrivalDate.ToShortDateString()}. " +
                 $"Departure {(arrival.DepartureDate.HasValue ? $"at {arrival.DepartureDate.Value.ToShortDateString()}" : "is not planned.")}");
 
-            await _arrivalRepository.AddAsync(arrival);
+            await _arrivalService.AddAsync(arrival);
         }
 
         private Task ProcessError(Exception exception)
