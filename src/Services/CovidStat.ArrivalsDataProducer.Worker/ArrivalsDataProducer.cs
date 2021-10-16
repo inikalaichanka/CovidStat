@@ -1,27 +1,28 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using CovidStat.Infrastructure.MessageBus;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Services;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Models;
 
 namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
     public class ArrivalsDataProducer : BackgroundService
     {
         private readonly ILogger<ArrivalsDataProducer> _logger;
-        private readonly IArrivalsDataStorage _arrivalsDataStorage;
+        private readonly IArrivalsDataService _arrivalsDataService;
         private readonly IMessageBus _messageBus;
         private readonly Random _random = new();
 
         public ArrivalsDataProducer(
             ILogger<ArrivalsDataProducer> logger,
-            IArrivalsDataStorage arrivalsDataStorage,
+            IArrivalsDataService arrivalsDataService,
             IMessageBus messageBus)
         {
             _logger = logger;
-            _arrivalsDataStorage = arrivalsDataStorage;
+            _arrivalsDataService = arrivalsDataService;
             _messageBus = messageBus;
         }
 
@@ -66,7 +67,7 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
 
         private async Task<ArrivalViewModel> ProduceNextAsync()
         {
-            ArrivalViewModel arrival = await _arrivalsDataStorage.GetNextAsync();
+            ArrivalViewModel arrival = await _arrivalsDataService.GetNextAsync();
             arrival.ArrivalDate = DateTime.Now.Date;
 
             if (_random.Next(0, 10) != 9)

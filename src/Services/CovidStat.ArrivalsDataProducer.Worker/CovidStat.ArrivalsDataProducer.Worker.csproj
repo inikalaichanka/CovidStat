@@ -17,6 +17,5 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\CovidStat.MessageBusServiceBus\CovidStat.MessageBusServiceBus.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CovidStat.MessageBus\CovidStat.MessageBus.csproj" />
-    <ProjectReference Include="..\CovidStat.ArrivalsDataProducer\CovidStat.ArrivalsDataProducer.csproj" />
   </ItemGroup>
 </Project>

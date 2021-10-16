@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3ED37E73-88F
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{308D788A-7A7B-4365-8990-38D2027210C2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CovidStat.ArrivalsDataProducer", "Services\CovidStat.ArrivalsDataProducer\CovidStat.ArrivalsDataProducer.csproj", "{551CDCAD-6E66-42AA-8AF2-696480FEBE8E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CovidStat.ArrivalsDataProducer.Worker", "Services\CovidStat.ArrivalsDataProducer.Worker\CovidStat.ArrivalsDataProducer.Worker.csproj", "{5C1C2784-2B0A-4157-9858-DE93FC750C52}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ArrivalsDataProducer", "ArrivalsDataProducer", "{D564FDE2-590A-4EF6-AF23-D442657C04BB}"
@@ -42,10 +40,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{551CDCAD-6E66-42AA-8AF2-696480FEBE8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{551CDCAD-6E66-42AA-8AF2-696480FEBE8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{551CDCAD-6E66-42AA-8AF2-696480FEBE8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{551CDCAD-6E66-42AA-8AF2-696480FEBE8E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5C1C2784-2B0A-4157-9858-DE93FC750C52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5C1C2784-2B0A-4157-9858-DE93FC750C52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5C1C2784-2B0A-4157-9858-DE93FC750C52}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -76,7 +70,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{308D788A-7A7B-4365-8990-38D2027210C2} = {3ED37E73-88FC-48AE-9CA0-12BDA2720B36}
-		{551CDCAD-6E66-42AA-8AF2-696480FEBE8E} = {D564FDE2-590A-4EF6-AF23-D442657C04BB}
 		{5C1C2784-2B0A-4157-9858-DE93FC750C52} = {D564FDE2-590A-4EF6-AF23-D442657C04BB}
 		{D564FDE2-590A-4EF6-AF23-D442657C04BB} = {308D788A-7A7B-4365-8990-38D2027210C2}
 		{90AE8E18-8B34-4545-A94B-EF9AAA3D594C} = {3ED37E73-88FC-48AE-9CA0-12BDA2720B36}

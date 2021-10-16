@@ -1,20 +1,40 @@
-﻿using CovidStat.Services.ArrivalsDataProducer.Interfaces;
+﻿using CovidStat.Services.ArrivalsDataProducer.Worker.Infrastructure;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace CovidStat.Services.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer.Worker.Services
 {
-    public class ArrivalsHttpClient : IArrivalsHttpClient
+    public class ArrivalsDataLoader : IArrivalsDataLoader
     {
         private readonly HttpClient _httpClient;
+        private readonly JsonSerializerOptions _deserializeOptions = new() { PropertyNameCaseInsensitive = true };
         private const string RequestUri = "https://generatedata3.com/ajax.php";
 
-        public ArrivalsHttpClient(HttpClient httpClient) => _httpClient = httpClient;
+        public ArrivalsDataLoader(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
 
-        public async Task<HttpResponseMessage> FetchDataAsync() => await _httpClient.PostAsync(RequestUri, GetRequestContent());
+        public async Task<ArrivalViewModel[]> LoadDataAsync()
+        {
+            var response = await FetchDataAsync();
+            using var contentStream = await response.Content.ReadAsStreamAsync();
+            var responseViewModel = await JsonSerializer.DeserializeAsync<ResponseViewModel>(contentStream, _deserializeOptions);
+
+            string serializedData = DecodeContent(responseViewModel.Content);
+
+            var result = JsonSerializer.Deserialize<ArrivalViewModel[]>(serializedData, _deserializeOptions);
+            PopulateData(result);
+
+            return result;
+        }
+
+        private async Task<HttpResponseMessage> FetchDataAsync() => await _httpClient.PostAsync(RequestUri, GetRequestContent());
 
         private StringContent GetRequestContent()
         {
@@ -64,6 +84,31 @@ namespace CovidStat.Services.ArrivalsDataProducer
 
             string content = string.Join('&', requestData.Select(x => $"{x.Key}={x.Value}"));
             return new StringContent(content, Encoding.UTF8, "application/x-www-form-urlencoded");
+        }
+
+        private static string DecodeContent(string content)
+        {
+            // content comes with special unicode symbols, e.g. 'Wroc\u00c5\u0082aw'
+            // it needs to decode them to 'Wrocław'
+            var bytes = Encoding.GetEncoding("ISO-8859-1").GetBytes(content);
+            return Encoding.UTF8.GetString(bytes);
+        }
+
+        private static void PopulateData(ArrivalViewModel[] data)
+        {
+            foreach (var item in data)
+            {
+                item.DateOfBirth = item.DateOfBirth.Date;
+            }
+        }
+
+        private class ResponseViewModel
+        {
+            public bool Success { get; set; }
+
+            public string Content { get; set; }
+
+            public bool IsComplete { get; set; }
         }
     }
 }

@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
-using CovidStat.Services.ArrivalsDataProducer.Interfaces;
 using CovidStat.Infrastructure.MessageBus;
 using CovidStat.Infrastructure.MessageBusServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Services;
 
 namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
@@ -19,11 +19,10 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
 
                     services
                         .AddHostedService<ArrivalsDataProducer>()
-                        .AddSingleton<IArrivalsDataStorage, ArrivalsDataStorage>()
+                        .AddSingleton<IArrivalsDataService, ArrivalsDataService>()
                         .AddSingleton<IArrivalsDataLoader, ArrivalsDataLoader>()
-                        .AddSingleton<IArrivalsHttpClient, ArrivalsHttpClient>()
                         .AddSingleton<IMessageBus, MessageBusServiceBus>()
-                        .AddHttpClient<ArrivalsHttpClient>();
+                        .AddHttpClient<ArrivalsDataLoader>();
                 })
                 .Build();
 

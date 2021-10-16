@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CovidStat.Services.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer.Worker.Models
 {
     public class ArrivalViewModel
     {

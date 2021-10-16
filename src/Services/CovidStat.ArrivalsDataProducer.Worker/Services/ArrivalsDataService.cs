@@ -1,17 +1,18 @@
-﻿using CovidStat.Services.ArrivalsDataProducer.Interfaces;
+﻿using CovidStat.Services.ArrivalsDataProducer.Worker.Infrastructure;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CovidStat.Services.ArrivalsDataProducer
+namespace CovidStat.Services.ArrivalsDataProducer.Worker.Services
 {
-    public class ArrivalsDataStorage : IArrivalsDataStorage
+    public class ArrivalsDataService : IArrivalsDataService
     {
         private readonly Dictionary<Guid, ArrivalViewModel> _cache = new(Constants.FetchDataBatchSize);
         private readonly IArrivalsDataLoader _arrivalsDataLoader;
 
-        public ArrivalsDataStorage(IArrivalsDataLoader arrivalsDataLoader) => _arrivalsDataLoader = arrivalsDataLoader;
+        public ArrivalsDataService(IArrivalsDataLoader arrivalsDataLoader) => _arrivalsDataLoader = arrivalsDataLoader;
 
         public async Task<ArrivalViewModel> GetNextAsync()
         {
