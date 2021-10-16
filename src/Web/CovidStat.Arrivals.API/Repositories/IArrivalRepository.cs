@@ -7,5 +7,7 @@ namespace CovidStat.Web.Arrivals.API.Repositories
     public interface IArrivalRepository
     {
         Task<IEnumerable<ArrivalViewModel>> GetAsync();
+
+        Task AddAsync(ArrivalViewModel arrival);
     }
 }

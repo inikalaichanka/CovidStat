@@ -25,5 +25,12 @@ namespace CovidStat.Web.Arrivals.API.Repositories
                 .ToListAsync()
                 .ConfigureAwait(false);
         }
+
+        public async Task AddAsync(ArrivalViewModel arrival)
+        {
+            await _arrivals
+                .InsertOneAsync(arrival)
+                .ConfigureAwait(false);
+        }
     }
 }

@@ -22,5 +22,11 @@ namespace CovidStat.Web.Arrivals.API.Controllers
         {
             return await _arrivalRepository.GetAsync();
         }
+
+        [HttpPost]
+        public async Task AddAsync(ArrivalViewModel arrival)
+        {
+            await _arrivalRepository.AddAsync(arrival);
+        }
     }
 }
