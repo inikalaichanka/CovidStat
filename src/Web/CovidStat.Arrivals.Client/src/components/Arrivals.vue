@@ -1,45 +1,31 @@
-<template>
-    <div class="post">
-        <div v-if="loading" class="loading">
-            Loading...
+﻿<template>
+    <div class="arrivals">
+        <div v-if="loading" class="text-center">
+            <b-spinner variant="primary"></b-spinner>
         </div>
 
-        <div v-if="post" class="content">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Full Name</th>
-                        <th>Phone</th>
-                        <th>E-mail</th>
-                        <th>Date Of Birth</th>
-                        <th>Region</th>
-                        <th>City</th>
-                        <th>Address</th>
-                        <th>PostalCode</th>
-                        <th>Vaccinated</th>
-                        <th>Arrival Date</th>
-                        <th>Departure Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="forecast in post" :key="forecast.date">
-                        <td>{{ forecast.id }}</td>
-                        <td>{{ forecast.fullName }}</td>
-                        <td>{{ forecast.phone }}</td>
-                        <td>{{ forecast.email }}</td>
-                        <td>{{ forecast.dateOfBirth }}</td>
-                        <td>{{ forecast.region }}</td>
-                        <td>{{ forecast.city }}</td>
-                        <td>{{ forecast.address }}</td>
-                        <td>{{ forecast.postalCode }}</td>
-                        <td>{{ forecast.isVaccinated }}</td>
-                        <td>{{ forecast.arrivalDate }}</td>
-                        <td>{{ forecast.departureDate }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <b-container class="text-center">
+            <b-row v-for="arrival in arrivals">
+                <b-col md="8" offset-md="2">
+                    <b-alert :variant="arrival.isVaccinated ? 'success' : 'danger'" show>
+                        <p class="fw-light fst-italic text-end">{{ new Date(arrival.arrivalDate).toLocaleString() }}</p>
+                        <p class="fs-4">{{ arrival.fullName }}</p>
+                        <hr />
+                        <p class="fs-5">
+                            {{ arrival.region }}, {{ arrival.city }}<br />
+                            {{ arrival.postalCode }}, {{ arrival.address }}
+                        </p>
+                        <hr />
+                        <p class="fs-6">
+                            {{ arrival.email }}<br />
+                            {{ arrival.phone }}
+                        </p>
+                        <hr />
+                        <p class="text-secondary">Departure at {{ new Date(arrival.departureDate).toLocaleString() }}</p>
+                    </b-alert>
+                </b-col>
+            </b-row>
+        </b-container>
     </div>
 </template>
 
@@ -63,14 +49,14 @@
 
     interface Data {
         loading: boolean,
-        post: null | Arrivals
+        arrivals: null | Arrivals
     }
 
     export default Vue.extend({
         data(): Data {
             return {
                 loading: false,
-                post: null
+                arrivals: null
             };
         },
         created() {
@@ -84,13 +70,13 @@
         },
         methods: {
             fetchData(): void {
-                this.post = null;
+                this.arrivals = null;
                 this.loading = true;
 
                 fetch('arrivals')
                     .then(r => r.json())
                     .then(json => {
-                        this.post = json as Arrivals;
+                        this.arrivals = json as Arrivals;
                         this.loading = false;
                         return;
                     });

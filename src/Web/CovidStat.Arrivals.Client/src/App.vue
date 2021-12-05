@@ -1,20 +1,26 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Arrivals msg="Welcome to Your Vue.js + TypeScript App"/>
+    <Arrivals/>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Arrivals from './components/Arrivals.vue';
+    import Vue from 'vue';
+    import { BootstrapVue } from 'bootstrap-vue'
 
-export default Vue.extend({
-  name: 'App',
-  components: {
-    Arrivals
-  }
-});
+    import 'bootstrap/dist/css/bootstrap.css'
+    import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+    import Arrivals from './components/Arrivals.vue'
+
+
+    Vue.use(BootstrapVue)
+    export default Vue.extend({
+        name: 'App',
+        components: {
+            Arrivals
+        }
+    });
 </script>
 
 <style>
@@ -22,8 +28,6 @@ export default Vue.extend({
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
   margin-top: 60px;
 }
 </style>
