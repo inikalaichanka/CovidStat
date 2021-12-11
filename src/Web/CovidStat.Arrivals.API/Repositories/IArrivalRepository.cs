@@ -8,6 +8,8 @@ namespace CovidStat.Web.Arrivals.API.Repositories
     {
         Task<IEnumerable<ArrivalViewModel>> GetAsync();
 
+        Task<IEnumerable<ArrivalViewModel>> GetLatestAsync(int count);
+
         Task AddAsync(ArrivalViewModel arrival);
     }
 }

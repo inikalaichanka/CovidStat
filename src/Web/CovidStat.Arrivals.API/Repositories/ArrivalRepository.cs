@@ -26,6 +26,16 @@ namespace CovidStat.Web.Arrivals.API.Repositories
                 .ConfigureAwait(false);
         }
 
+        public async Task<IEnumerable<ArrivalViewModel>> GetLatestAsync(int count)
+        {
+            return await _arrivals
+                .Find(FilterDefinition<ArrivalViewModel>.Empty)
+                .SortByDescending(x => x.ArrivalDate)
+                .Limit(count)
+                .ToListAsync()
+                .ConfigureAwait(false);
+        }
+
         public async Task AddAsync(ArrivalViewModel arrival)
         {
             await _arrivals

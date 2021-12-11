@@ -23,6 +23,13 @@ namespace CovidStat.Web.Arrivals.API.Controllers
             return await _arrivalRepository.GetAsync();
         }
 
+        [Route("latest")]
+        [HttpGet]
+        public async Task<IEnumerable<ArrivalViewModel>> GetLatestAsync(int count)
+        {
+            return await _arrivalRepository.GetLatestAsync(count);
+        }
+
         [HttpPost]
         public async Task AddAsync(ArrivalViewModel arrival)
         {

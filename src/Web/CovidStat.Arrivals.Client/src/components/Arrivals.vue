@@ -73,7 +73,8 @@
                 this.arrivals = null;
                 this.loading = true;
                 
-                const data = await fetch('arrivals');
+                const count = 10;
+                const data = await fetch(`arrivals/latest?count=${count}`);
 
                 this.arrivals = await data.json() as Arrivals;
                 this.loading = false;

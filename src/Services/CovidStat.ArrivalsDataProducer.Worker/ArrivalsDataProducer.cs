@@ -68,7 +68,7 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
         private async Task<ArrivalViewModel> ProduceNextAsync()
         {
             ArrivalViewModel arrival = await _arrivalsDataService.GetNextAsync();
-            arrival.ArrivalDate = DateTime.Now.Date;
+            arrival.ArrivalDate = DateTime.UtcNow;
 
             if (_random.Next(0, 10) != 9)
             {
