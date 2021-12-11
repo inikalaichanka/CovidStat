@@ -25,7 +25,7 @@ module.exports = {
         },
         proxy: {
             '^/arrivals': {
-                target: 'https://localhost:5001/api'
+                target: 'https://localhost:54248/api'
             }
         },
         port: 5002
