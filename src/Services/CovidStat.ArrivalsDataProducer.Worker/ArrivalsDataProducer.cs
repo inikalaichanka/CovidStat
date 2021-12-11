@@ -6,6 +6,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using CovidStat.Services.ArrivalsDataProducer.Worker.Services;
 using CovidStat.Services.ArrivalsDataProducer.Worker.Models;
+using Microsoft.Extensions.Options;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Infrastructure;
 
 namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
@@ -14,16 +16,19 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
         private readonly ILogger<ArrivalsDataProducer> _logger;
         private readonly IArrivalsDataService _arrivalsDataService;
         private readonly IMessageBus _messageBus;
+        private readonly ArrivalsOptions _options;
         private readonly Random _random = new();
 
         public ArrivalsDataProducer(
             ILogger<ArrivalsDataProducer> logger,
             IArrivalsDataService arrivalsDataService,
-            IMessageBus messageBus)
+            IMessageBus messageBus,
+            IOptions<ArrivalsOptions> options)
         {
             _logger = logger;
             _arrivalsDataService = arrivalsDataService;
             _messageBus = messageBus;
+            _options = options.Value;
         }
 
         public override Task StartAsync(CancellationToken cancellationToken)
@@ -48,7 +53,9 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
 
                     await _messageBus.PublishAsync(arrival, stoppingToken);
 
-                    await Task.Delay(_random.Next(10000, 30000), stoppingToken);
+                    await Task.Delay(
+                        _random.Next(_options.NextArrivalFrequencyMin, _options.NextArrivalFrequencyMax),
+                        stoppingToken);
                 }
                 catch (OperationCanceledException)
                 {

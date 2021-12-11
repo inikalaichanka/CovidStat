@@ -4,6 +4,7 @@ using CovidStat.Infrastructure.MessageBusServiceBus;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CovidStat.Services.ArrivalsDataProducer.Worker.Services;
+using CovidStat.Services.ArrivalsDataProducer.Worker.Infrastructure;
 
 namespace CovidStat.Services.ArrivalsDataProducer.Worker
 {
@@ -15,7 +16,8 @@ namespace CovidStat.Services.ArrivalsDataProducer.Worker
                 .ConfigureServices((hostContext, services) =>
                 {
                     services
-                        .Configure<ServiceBusOptions>(hostContext.Configuration.GetSection(ServiceBusOptions.ServiceBus));
+                        .Configure<ServiceBusOptions>(hostContext.Configuration.GetSection(ServiceBusOptions.ServiceBus))
+                        .Configure<ArrivalsOptions>(hostContext.Configuration.GetSection(ArrivalsOptions.Arrivals));
 
                     services
                         .AddHostedService<ArrivalsDataProducer>()
