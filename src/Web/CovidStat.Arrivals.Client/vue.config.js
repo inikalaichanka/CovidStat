@@ -28,6 +28,7 @@ module.exports = {
                 target: 'https://localhost:54248/api'
             }
         },
-        port: 5002
+        port: 5002,
+        host: 'localhost'
     }
 }

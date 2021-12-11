@@ -5,7 +5,7 @@
         </div>
 
         <b-container class="text-center">
-            <b-row v-for="arrival in arrivals">
+            <b-row v-for="arrival in arrivals" :key="arrival.id">
                 <b-col md="8" offset-md="2">
                     <b-alert :variant="arrival.isVaccinated ? 'success' : 'danger'" show>
                         <p class="fw-light fst-italic text-end">{{ new Date(arrival.arrivalDate).toLocaleString() }}</p>
@@ -69,17 +69,14 @@
             '$route': 'fetchData'
         },
         methods: {
-            fetchData(): void {
+            async fetchData() {
                 this.arrivals = null;
                 this.loading = true;
+                
+                const data = await fetch('arrivals');
 
-                fetch('arrivals')
-                    .then(r => r.json())
-                    .then(json => {
-                        this.arrivals = json as Arrivals;
-                        this.loading = false;
-                        return;
-                    });
+                this.arrivals = await data.json() as Arrivals;
+                this.loading = false;
             }
         },
     });
