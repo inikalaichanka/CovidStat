@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>dotnet-CovidStat.ArrivalsDataPublisher.Worker-66EDCB1F-C7A6-4A54-8808-06645AF5AA7D</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
     <RootNamespace>CovidStat.Services.ArrivalsDataPublisher.Worker</RootNamespace>
   </PropertyGroup>
