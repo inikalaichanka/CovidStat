@@ -18,13 +18,9 @@ services:
   covidstat.arrivals.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=${Environment}
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
       - MongoDB__ConnectionString=${MongoDB_ConnectionString}
       - MongoDB__DatabaseName=${MongoDB_DatabaseName}
       - MongoDB__CollectionName=${MongoDB_CollectionName}
     ports:
       - "54249:80"
-      - "54248:443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
