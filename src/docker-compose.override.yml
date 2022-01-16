@@ -24,3 +24,10 @@ services:
       - MongoDB__CollectionName=${MongoDB_CollectionName}
     ports:
       - "54249:80"
+
+  covidstat.arrivals.client:
+    build:
+      args:
+        - ArrivalsApi_Url=http://covidstat.arrivals.api/api
+    ports:
+      - "5002:80"

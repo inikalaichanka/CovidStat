@@ -21,3 +21,11 @@ services:
       context: .
       dockerfile: Web\CovidStat.Arrivals.API\Dockerfile
 
+  covidstat.arrivals.client:
+    image: ${DOCKER_REGISTRY-}covidstatarrivalsclient
+    build:
+        context: .
+        dockerfile: Web\CovidStat.Arrivals.Client\Dockerfile
+    depends_on:
+        - covidstat.arrivals.api
+
