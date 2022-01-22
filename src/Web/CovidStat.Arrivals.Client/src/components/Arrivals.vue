@@ -32,7 +32,7 @@
 <script lang="ts">
     import Vue from 'vue';
 
-    type Arrivals = {
+    type Arrival = {
         id: string,
         fullName: string,
         phone: string,
@@ -45,11 +45,11 @@
         isVaccinated: boolean,
         arrivalDate: Date,
         departureDate: Date | null
-    }[];
+    };
 
     interface Data {
         loading: boolean,
-        arrivals: null | Arrivals
+        arrivals: null | Arrival[]
     }
 
     export default Vue.extend({
@@ -60,12 +60,9 @@
             };
         },
         created() {
-            // fetch the data when the view is created and the data is
-            // already being observed
             this.fetchData();
         },
         watch: {
-            // call again the method if the route changes
             '$route': 'fetchData'
         },
         methods: {
@@ -76,7 +73,7 @@
                 const count = 10;
                 const data = await fetch(`/api/arrivals/latest?count=${count}`);
 
-                this.arrivals = await data.json() as Arrivals;
+                this.arrivals = await data.json() as Arrival[];
                 this.loading = false;
             }
         },
