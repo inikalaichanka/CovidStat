@@ -28,6 +28,6 @@ services:
   covidstat.arrivals.client:
     build:
       args:
-        - ArrivalsApi_Url=http://covidstat.arrivals.api/api
+        - ArrivalsApi_Url=http://covidstat.arrivals.api/
     ports:
       - "5002:80"

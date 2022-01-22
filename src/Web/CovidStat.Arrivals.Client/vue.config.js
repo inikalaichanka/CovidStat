@@ -1,8 +1,8 @@
 module.exports = {
     devServer: {
         proxy: {
-            '^/arrivals': {
-                target: 'http://localhost:54249/api'
+            '^/api': {
+                target: 'http://localhost:54249'
             }
         },
         port: 5002,
