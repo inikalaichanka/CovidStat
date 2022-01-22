@@ -22,6 +22,7 @@ services:
       - MongoDB__ConnectionString=${MongoDB_ConnectionString}
       - MongoDB__DatabaseName=${MongoDB_DatabaseName}
       - MongoDB__CollectionName=${MongoDB_CollectionName}
+      - SignalR__ConnectionString=${SignalR_ConnectionString}
     ports:
       - "54249:80"
 

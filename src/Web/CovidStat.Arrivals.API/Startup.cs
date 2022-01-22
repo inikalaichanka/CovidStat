@@ -1,3 +1,4 @@
+using CovidStat.Web.Arrivals.API.Hubs;
 using CovidStat.Web.Arrivals.API.Infrastructure;
 using CovidStat.Web.Arrivals.API.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -28,6 +29,11 @@ namespace CovidStat.Web.Arrivals.API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CovidStat.Arrivals.API", Version = "v1" });
             });
 
+            services.AddSignalR().AddAzureSignalR(cfg =>
+            {
+                cfg.ConnectionString = Configuration["SignalR:ConnectionString"];
+            });
+
             services.AddScoped<IArrivalRepository, ArrivalRepository>();
             services.Configure<MongoDbOptions>(Configuration.GetSection(MongoDbOptions.MongoDb));
         }
@@ -49,6 +55,7 @@ namespace CovidStat.Web.Arrivals.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<ArrivalsHub>("/arrivals-hub");
             });
         }
     }

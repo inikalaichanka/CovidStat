@@ -16,6 +16,7 @@
     "vue": "^2.6.14"
   },
   "devDependencies": {
+    "@microsoft/signalr": "^6.0.1",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",

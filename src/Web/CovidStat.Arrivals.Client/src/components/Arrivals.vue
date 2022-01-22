@@ -61,6 +61,7 @@
         },
         created() {
             this.fetchData();
+            this.$arrivalsHub.$on('arrival-received', this.onArrivalReceived);
         },
         watch: {
             '$route': 'fetchData'
@@ -75,6 +76,10 @@
 
                 this.arrivals = await data.json() as Arrival[];
                 this.loading = false;
+            },
+            onArrivalReceived(arrival: Arrival) {
+                this.arrivals?.pop();
+                this.arrivals?.splice(0, 0, arrival);
             }
         },
     });
